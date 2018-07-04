@@ -1,0 +1,44 @@
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+      
+server:
+  port: 8762
+#  contextPath: "/nodefault"
+
+debug: true
+ 
+spring:
+  application:
+    name: service-tt
+#  profile: 
+#    active: dev
+  devtools:
+      restart:
+          enabled: true
+  datasource:
+#        type: com.zaxxer.hikari.HikariDataSource
+        #url: jdbc:mysql://192.168.251.151:3306/samplemicroservice?useUnicode=true&characterEncoding=utf8&useSSL=false
+        #url: jdbc:mysql://localhost:3306/db1?useUnicode=true&characterEncoding=utf8&useSSL=false
+        #url: jdbc:oracle:thin:@192.168.251.158:1521:ycorcl
+        url: jdbc:oracle:thin:@172.16.20.87:1521:orcl
+        #url: jdbc:oracle:thin:@localhost:1521:orcl
+        username: crm_mobilev25
+        password: crm_mobilev25
+        
+# Mybatis 相关配置
+mybatis:
+  mapperLocations: classpath:mapper/*.xml            #Mapper的XML文件
+#  type-aliases-package: com.example.demo.entity     #实体类的包
+  configuration:
+    map-underscore-to-camel-case: false
+#mapper:
+#  mappers:
+#  - cn.com.yusys.yusp.commons.mapper.CommonMapper
+#pagehelper:
+#  helperDialect: oracle
+#  reasonable: true
+#application:
+
+          

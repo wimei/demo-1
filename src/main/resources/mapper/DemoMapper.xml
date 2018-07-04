@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.repository.mapper.DemoMapper">
+ 	
+	<!-- 查询所有数据 -->
+	<select id="selectAll" resultType="java.util.HashMap">
+		SELECT d.* from DEMO d ORDER BY d.PROPERTY desc
+	</select>
+	
+	<!-- 根据Id查询数据 -->
+	<select id="selectById" resultMap="demoResultMap">
+		SELECT d.* FROM DEMO d
+		<where>
+			<if test="_parameter != null and _parameter != ''">
+				d.AREA_ID = #{_parameter}
+			</if>
+		</where>
+	</select>
+	
+	<!--通过<resultMap>映射实体类属性名和表的字段名对应关系 -->
+     <resultMap type="com.example.demo.entity.Demo" id="demoResultMap">
+         <!-- 用id属性来映射主键字段 -->
+         <id property="areaId" column="AREA_ID"/>
+        <!-- 用result属性来映射非主键字段 -->
+        <result property="areaName" column="AREA_NAME"/>
+        <result property="createTime" column="CREATE_TIME"/>
+        <result property="lastEditTime" column="LAST_EDIT_TIME"/>
+    </resultMap>
+	
+	<insert id="insert" useGeneratedKeys="true" keyProperty="areaId" 
+	 keyColumn="AREA_ID" parameterType="com.example.demo.entity.Demo">
+		INSERT INTO DEMO(AREA_ID, AREA_NAME, PROPERTY,
+			CREATE_TIME, LAST_EDIT_TIME) 
+		VALUES
+		(DEMO_SEQUENCE.NEXTVAL, #{areaName}, #{property}, #{createTime}, 
+			#{lastEditTime})
+	</insert>
+	
+	<update id="update" parameterType="com.example.demo.entity.Demo">
+		UPDATE DEMO d
+		<set>
+			<if test="areaName != null">d.AREA_NAME=#{areaName},</if>
+			<if test="property != null">d.PROPERTY=#{property},</if>
+			<if test="lastEditTime != null">d.LAST_EDIT_TIME=#{lastEditTime}</if>
+		</set>
+		WHERE d.AREA_ID = #{areaId}
+	</update>
+	
+	<delete id="deleteById">
+		DELETE FROM DEMO d
+		<where>
+			d.AREA_ID = #{areaId}
+		</where>
+	</delete>
+</mapper>
