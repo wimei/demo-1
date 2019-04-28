@@ -73,11 +73,11 @@
         </dependency>
 
 		<!-- oracle begin -->
-        <dependency>            
+<!--         <dependency>            
             <groupId>com.oracle</groupId>            
             <artifactId>ojdbc8</artifactId>            
             <version>${oracle.version}</version>        
-        </dependency>
+        </dependency> -->
         <!-- oracle end -->
         
 		<dependency>
